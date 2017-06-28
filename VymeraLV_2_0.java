@@ -17,12 +17,12 @@ public class VymeraLV_2_0 extends Konzole{
 		} else if (pripona.equalsIgnoreCase("xls")) {
 			Loader.parseFile(new File(path));
 			Vypisy.vypis(path);
-		} else GUI.textPane.setText("NeznÃ¡mÃ½ formÃ¡t");
+		} else GUI.textPane.setText("Neznámý formát");
 		System.exit(0);
 	}
 	
 	public static void main(String[] args) {
-		File xlsFile = new File(csvToXLS("pÅ™ehled parcel.csv"));
+		File xlsFile = new File(csvToXLS("pøehled parcel.csv"));
 		VymeraLV_2_0.zkonvertuj(xlsFile.getAbsolutePath());
 		xlsFile.delete();
 	}
@@ -51,7 +51,7 @@ public class VymeraLV_2_0 extends Konzole{
 	        workBook.close();
 	        return xlsFileAddress;
 	    } catch (Exception ex) {
-	        System.err.println("Chyba pÅ™i konverzi do xls.");
+	        System.err.println("Chyba pøi konverzi do xls.");
 	        System.exit(0);
 	        return null;
 	    }

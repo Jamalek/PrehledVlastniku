@@ -47,29 +47,29 @@ public class GUI extends JFrame{
 	 */
 	private void initialize() throws IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Vyberte soubor pro vytvo≈ôen√≠ p≈ôehledu");
+		setTitle("Vyberte soubor pro vytvo¯enÌ p¯ehledu");
 		setLayout(new BorderLayout());
 		int width = 600;
 		int height = 460;
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(dim.width/2-width/2, dim.height/2-height/2);
 		setSize(width, height);
-		UIManager.put("FileChooser.acceptAllFileFilterText", "V≈°echny Soubory");
-		UIManager.put("FileChooser.cancelButtonText", "Zav≈ô√≠t");
-		UIManager.put("FileChooser.cancelButtonToolTipText", "Zav≈ôe okno a ukonƒç√≠ program");
+		UIManager.put("FileChooser.acceptAllFileFilterText", "Vöechny Soubory");
+		UIManager.put("FileChooser.cancelButtonText", "Zav¯Ìt");
+		UIManager.put("FileChooser.cancelButtonToolTipText", "Zav¯e okno a ukonËÌ program");
 		UIManager.put("FileChooser.detailsViewButtonToolTipText", "Detaily");
-		UIManager.put("FileChooser.fileNameHeaderText", "N√°zev souboru:");
-		UIManager.put("FileChooser.fileNameLabelText", "N√°zev souboru:");
+		UIManager.put("FileChooser.fileNameHeaderText", "N·zev souboru:");
+		UIManager.put("FileChooser.fileNameLabelText", "N·zev souboru:");
 		UIManager.put("FileChooser.filesOfTypeLabelText", "Soubory typu:");
 		UIManager.put("FileChooser.listViewButtonToolTipText", "Seznam");
-		UIManager.put("FileChooser.lookInLabelText", "Adres√°t:");
-		UIManager.put("FileChooser.newFolderErrorText", "Chyba ve vytvo≈ôen√≠ slo≈æky");
-		UIManager.put("FileChooser.newFolderToolTipText", "Vytvo≈ôit novou slo≈æku");
+		UIManager.put("FileChooser.lookInLabelText", "Adres·t:");
+		UIManager.put("FileChooser.newFolderErrorText", "Chyba ve vytvo¯enÌ sloûky");
+		UIManager.put("FileChooser.newFolderToolTipText", "Vytvo¯it novou sloûku");
 		UIManager.put("FileChooser.openButtonText", "Vybrat");
 		UIManager.put("FileChooser.openButtonToolTipText", "Vybere soubor pro konverzi");
-		UIManager.put("FileChooser.upFolderToolTipText", "Do adres√°≈ôe o √∫rove≈à v√Ω≈°");
+		UIManager.put("FileChooser.upFolderToolTipText", "Do adres·¯e o ˙roveÚ v˝ö");
 		final JFileChooser jfc = new JFileChooser();
-		jfc.setCurrentDirectory(new File(new File("W:\\NYMBURK\\KP√ö").getCanonicalPath()));
+		jfc.setCurrentDirectory(new File(new File("W:\\NYMBURK\\KP⁄").getCanonicalPath()));
 		jfc.setFileFilter(new FileNameExtensionFilter("Excel", "xls", "csv"));
 		jfc.addActionListener(new ActionListener() {
 			@Override
@@ -87,7 +87,7 @@ public class GUI extends JFrame{
 		});
 		add(jfc, BorderLayout.CENTER);
 		textPane = new JTextPane();
-		textPane.setText("Program vytvo≈ôil Jan M√°lek. E-mail: 2janmalek@gmail.com\nAktu√°ln√≠ verzi naleznete na adrese: prehledvlastniku.xf.cz");
+		textPane.setText("Program vytvo¯il Jan M·lek. E-mail: 2janmalek@gmail.com\nAktu·lnÌ verzi naleznete na adrese: prehledvlastniku.xf.cz");
 		textPane.setEditable(false);
 		add(textPane, BorderLayout.PAGE_END);
 	}

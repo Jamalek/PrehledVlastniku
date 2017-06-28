@@ -31,7 +31,7 @@ public class Loader extends Konzole{
 		int procentoMinule = -1;
 		for (; r < rows; r++) {
 			int procento = (int)(((double) r)/((double) rows)*100.0);
-			if (procento != procentoMinule) p("NaÄÃ­tÃ¡nÃ­: "+procento);
+			if (procento != procentoMinule) p("Naèteno­: "+procento);
 			
 			HSSFRow vlastnikRow = sheetIN.getRow(r);
 			if (jeNovy(vlastnikRow)) {
@@ -82,17 +82,17 @@ public class Loader extends Konzole{
 
 	private static boolean neniVPU(HSSFCell cDruhPozemku) {
 		String druh_pozemku = cDruhPozemku.getStringCellValue();
-		if (druh_pozemku.equalsIgnoreCase("ornÃ¡ pÅ¯da") || 
+		if (druh_pozemku.equalsIgnoreCase("orná pùda") || 
 				druh_pozemku.equalsIgnoreCase("chmelnice") || 
 				druh_pozemku.equalsIgnoreCase("vinice") || 
 				druh_pozemku.equalsIgnoreCase("zahrada") || 
-				druh_pozemku.equalsIgnoreCase("ovocnÃ½ sad") || 
-				druh_pozemku.equalsIgnoreCase("trvalÃ½ travnÃ­ porost") || 
+				druh_pozemku.equalsIgnoreCase("ovocný sad") || 
+				druh_pozemku.equalsIgnoreCase("trvalý travní porost") || 
 				druh_pozemku.equalsIgnoreCase("")) {
 			return false;
 		}
 		return true;
-		/*if (druh_pozemku.equalsIgnoreCase("zastavÃ¬nÃ¡ plocha a nÃ¡dvoÃ¸Ã­")) return true;
+		/*if (druh_pozemku.equalsIgnoreCase("zastavìná plocha a nádvoøí")) return true;
 		else return false;*/
 	}
 

@@ -35,7 +35,7 @@ public class Vypisy {
 				try {
 					sheet.createRow(i).createCell(j).setCellValue(cislo);
 				} catch (Exception e3) {
-					System.err.println("ÄŒÃ­slo \""+cislo+"\" nebylo vepsÃ¡no do buÅˆky");
+					System.err.println("Èíslo \""+cislo+"\" nebylo vepsáno do buòky");
 				}
 			}
 		}
@@ -53,7 +53,7 @@ public class Vypisy {
 				try {
 					sheet.createRow(i).createCell(j).setCellValue(string);
 				} catch (Exception e3) {
-					System.err.println("Å˜etÄ›zec \""+string+"\" nebyl vepsÃ¡n do buÅˆky");
+					System.err.println("Øetìzec \""+string+"\" nebyl vepsán do buòky");
 				}
 			}
 		}
@@ -77,24 +77,24 @@ public class Vypisy {
 //				System.out.println("\t"+vlastnik.subjekt);
 //			}
 //		}
-		sheet = workBook.createSheet("Listy vlastnictvÃ­");
+		sheet = workBook.createSheet("Listy vlastnictví");
 		
 		row = sheet.createRow(0);
 		v("LV", 0, 0);
-		v("vÃ½mÄ›ra LV m2", 0, 1);
+		v("vımìra LV m2", 0, 1);
 
 		v("parcela", 0, 2);
-		v("vÃ½mÄ›ra parcely m2", 0, 3);
+		v("vımìra parcely m2", 0, 3);
 		v("kultura", 0, 4);
 
 		v("subjekt", 0, 5);
 		v("adresa", 0, 6);
-		v("iÄ", 0, 7);
+		v("iè", 0, 7);
 		v("subjekt SJM1", 0, 8);
 		v("adresa SJM1", 0, 9);
 		v("subjekt SJM2", 0, 10);
 		v("adresa SJM2", 0, 11);
-		v("podÃ­l", 0, 12);
+		v("podíl", 0, 12);
 
 		ArrayList<LV> seznamLV = LV.seznamLV;
 		LV lv;
@@ -158,12 +158,12 @@ public class Vypisy {
 	private static void vypisNejvetsiVlastniky() {
 		Vlastnik.sectiVymery();
 		Vlastnik.seradPodleVymery();
-		sheet = workBook.createSheet("VlastnÃ­ci podle vel. podÃ­lu");
+		sheet = workBook.createSheet("Vlastníci podle vel. podílu");
 		row = sheet.createRow(0);
 		row.createCell(0).setCellValue("subjekt");
-		row.createCell(1).setCellValue("podÃ­lovÃ¡ vÃ½mÄ›ra");
+		row.createCell(1).setCellValue("podílová vımìra");
 		row.createCell(2).setCellValue("seznam LV");
-		row.createCell(3).setCellValue("vÃ½mÄ›ra LV m2");
+		row.createCell(3).setCellValue("vımìra LV m2");
 		for (int r = 0; r < Vlastnik.seznamVlastniku.size(); r++) {
 			row = sheet.createRow(r+1);
 			Vlastnik vlastnik = Vlastnik.seznamVlastniku.get(r);
@@ -198,7 +198,7 @@ public class Vypisy {
 
 	public static void close() {
 		try {
-			FileOutputStream fileOut = new FileOutputStream(path.substring(0, path.lastIndexOf('.'))+" pÅ™ehled vlastnÃ­kÅ¯ a parcel"+".xls");
+			FileOutputStream fileOut = new FileOutputStream(path.substring(0, path.lastIndexOf('.'))+" pÅ™ehled vlastníkÅ¯ a parcel"+".xls");
 			workBook.write(fileOut);
 			workBook.close();
 		} catch (IOException e) {
