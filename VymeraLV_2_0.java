@@ -11,11 +11,11 @@ public class VymeraLV_2_0 extends Konzole{
 		String pripona = path.substring(path.indexOf(".")+1);
 		if (pripona.equalsIgnoreCase("csv")) {
 			File xlsFile = new File(csvToXLS(path));
-			Loader.parseFile(xlsFile);
+			Loader.parseFile2(xlsFile);
 			Vypisy.vypis(path);
 			xlsFile.delete();
 		} else if (pripona.equalsIgnoreCase("xls")) {
-			Loader.parseFile(new File(path));
+			Loader.parseFile2(new File(path));
 			Vypisy.vypis(path);
 		} else GUI.textPane.setText("Neznámý formát");
 		System.exit(0);
@@ -36,7 +36,7 @@ public class VymeraLV_2_0 extends Konzole{
 	        int RowNum=0;
 	        BufferedReader br = new BufferedReader(new FileReader(csvFileAddress));
 	        while ((currentLine = br.readLine()) != null) {
-	        	Konzole.p(currentLine);
+	        	//Konzole.p(currentLine);
 	            String str[] = currentLine.split(";");
 	            HSSFRow currentRow=sheet.createRow(RowNum);
 	            RowNum++;

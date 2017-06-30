@@ -20,9 +20,40 @@ public class Loader extends Konzole{
 	private static boolean nacteno = false;
 	
 	public static void parseFile2(File xlsFile) {
-		
+		loadFile(xlsFile);
+		for (; r < rows; r++) {
+			int pocetPrazdnychRadku = getNumEmptyLines();
+			
+			
+			for (int i = r; i <= r+pocetPrazdnychRadku; i++) {
+				if (neniVPU(c("druh_pozemku", r))) {
+					continue;
+				} else if (LV.exists(loadIntValue(c("cislo_lv",r))) {
+					LV.getLV(loadIntValue(c("cislo_lv",r))
+					LV.addParcel();
+				} else {
+					
+				}
+				
+				p(r+1+" "+(i-r)+" "+c("subjekt", i).toString());
+			}
+			
+			//p(r+1+" "+pocetPrazdnychRadku);
+			r+=getNumEmptyLines();
+		}
 	}
 	
+	private static int getNumEmptyLines() {
+		int i = r;
+		do {
+			i++;
+			if (i >= rows-1) break;
+			} 
+		while (c("kraj_kod", i).toString().equalsIgnoreCase("")
+				&& !c("subjekt", i).toString().equalsIgnoreCase(""));
+		return i - (r+1);
+	}
+
 	public static void parseFile(File xlsFile) {
 		loadFile(xlsFile);
 		Parcela parcela;
@@ -31,7 +62,7 @@ public class Loader extends Konzole{
 		int procentoMinule = -1;
 		for (; r < rows; r++) {
 			int procento = (int)(((double) r)/((double) rows)*100.0);
-			if (procento != procentoMinule) p("Naèteno­: "+procento);
+			if (procento != procentoMinule) p("Naèteno: "+procento);
 			
 			HSSFRow vlastnikRow = sheetIN.getRow(r);
 			if (jeNovy(vlastnikRow)) {

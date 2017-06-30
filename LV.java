@@ -15,6 +15,7 @@ public class LV implements Comparable<LV>{
 	
 	private LV(int cislo_listu_vlastnictvi) {
 		this.cisloLV = cislo_listu_vlastnictvi;
+		seznamLV.add(this);
 	}
 	
 	public static LV getLV(int cislo_listu_vlastnictvi) {

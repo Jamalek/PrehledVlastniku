@@ -198,7 +198,7 @@ public class Vypisy {
 
 	public static void close() {
 		try {
-			FileOutputStream fileOut = new FileOutputStream(path.substring(0, path.lastIndexOf('.'))+" pÅ™ehled vlastníkÅ¯ a parcel"+".xls");
+			FileOutputStream fileOut = new FileOutputStream(path.substring(0, path.lastIndexOf('.'))+" pøehled vlastníkù a parcel"+".xls");
 			workBook.write(fileOut);
 			workBook.close();
 		} catch (IOException e) {
