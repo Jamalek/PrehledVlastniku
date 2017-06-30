@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -23,19 +24,21 @@ public class Loader extends Konzole{
 		loadFile(xlsFile);
 		for (; r < rows; r++) {
 			int pocetPrazdnychRadku = getNumEmptyLines();
-			
+			if (neniVPU(c("druh_pozemku", r))) continue;
+			Parcela parcela = Parcela.getParcela(
+					c("cislo_lv", r), 
+					c("typ_evidence", r), 
+					c("cislo_parcely", r), 
+					c("poddeleni_cisla_par", r), 
+					c("vymera", r), 
+					c("druh_pozemku", r));
+			LV lv = parcela.lv;
+			lv.pridejParcelu(parcela);
 			
 			for (int i = r; i <= r+pocetPrazdnychRadku; i++) {
-				if (neniVPU(c("druh_pozemku", r))) {
-					continue;
-				} else if (LV.exists(loadIntValue(c("cislo_lv",r))) {
-					LV.getLV(loadIntValue(c("cislo_lv",r))
-					LV.addParcel();
-				} else {
-					
-				}
+				nactiVlastniky(lv, pocetPrazdnychRadku);
 				
-				p(r+1+" "+(i-r)+" "+c("subjekt", i).toString());
+				//p(r+1+" "+(i-r)+" "+c("subjekt", i).toString());
 			}
 			
 			//p(r+1+" "+pocetPrazdnychRadku);
@@ -43,6 +46,28 @@ public class Loader extends Konzole{
 		}
 	}
 	
+	private static void nactiVlastniky(LV lv, int pocetPrazdnychRadku) {
+		for (int i = 0; i <= pocetPrazdnychRadku; i++) {
+			if (c("cislo_lv",r+i).toString().contains("-")) continue;
+			else {
+				Vlastnik vlastnik = Vlastnik.getVlastnik(
+						c("os_typ", r+i), 
+						c("rc", r+i), 
+						c("ic", r+i), 
+						c("subjekt", r+i), 
+						c("adresa", r+i), 
+						c("rc_BSM1", r+i), 
+						c("subjekt_BSM1", r+i), 
+						c("adresa_BSM1", r+i), 
+						c("rc_BSM2", r+i), 
+						c("subjekt_BSM2", r+i), 
+						c("adresa_BSM2", r+i));
+				vlastnik.pridejLV(lv, loadIntValue(c("podil_citatel", r+i)), loadIntValue(c("podil_jmenovatel", r+i)));
+				lv.pridejVlastnika(vlastnik, loadIntValue(c("podil_citatel", r+i)), loadIntValue(c("podil_jmenovatel", r+i)));
+			}
+		}
+	}
+
 	private static int getNumEmptyLines() {
 		int i = r;
 		do {

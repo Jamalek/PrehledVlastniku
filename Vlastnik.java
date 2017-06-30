@@ -29,7 +29,6 @@ public class Vlastnik extends Loader implements Comparable<Vlastnik>{
 
 	static int pocet;
 	public static Vlastnik getVlastnik(HSSFCell os_typ, HSSFCell rc, HSSFCell ic, HSSFCell subjekt, HSSFCell adresa, HSSFCell rc_BSM1, HSSFCell subjekt_BSM1, HSSFCell adresa_BSM1, HSSFCell rc_BSM2, HSSFCell subjekt_BSM2, HSSFCell adresa_BSM2) {
-		if (loadStringValue(subjekt).equalsIgnoreCase("Èeská republika") || loadStringValue(subjekt).equalsIgnoreCase("Støedoèeský kraj")) return null;
 		for (Vlastnik vlastnik : seznamVlastniku) {
 			try {
 			if (vlastnik.rc != 0 && vlastnik.rc == loadLongValue(rc)) {
