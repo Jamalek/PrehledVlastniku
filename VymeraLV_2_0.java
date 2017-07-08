@@ -11,11 +11,11 @@ public class VymeraLV_2_0 extends Konzole{
 		String pripona = path.substring(path.indexOf(".")+1);
 		if (pripona.equalsIgnoreCase("csv")) {
 			File xlsFile = new File(csvToXLS(path));
-			Loader.parseFile2(xlsFile);
+			Loader.parseFile(xlsFile);
 			Vypisy.vypis(path);
 			xlsFile.delete();
 		} else if (pripona.equalsIgnoreCase("xls")) {
-			Loader.parseFile2(new File(path));
+			Loader.parseFile(new File(path));
 			Vypisy.vypis(path);
 		} else GUI.textPane.setText("Neznámý formát");
 		System.exit(0);

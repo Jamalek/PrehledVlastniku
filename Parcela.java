@@ -20,6 +20,7 @@ public class Parcela extends Loader implements Comparable<Parcela>{
 		this.podlomeni = loadIntValue(podlomeni);
 		this.vymera = loadIntValue(vymera);
 		this.druh_pozemku = loadStringValue(druh_pozemku);
+		lv.pridejParcelu(this);
 	}
 	
 	public static Parcela getParcela(HSSFCell cisloLV, HSSFCell typ_evidence, HSSFCell kmen, HSSFCell podlomeni, HSSFCell vymera, HSSFCell druh_pozemku) {

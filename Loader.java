@@ -20,33 +20,31 @@ public class Loader extends Konzole{
 	private static int r = 1;
 	private static boolean nacteno = false;
 	
-	public static void parseFile2(File xlsFile) {
+	public static void parseFile(File xlsFile) {
 		loadFile(xlsFile);
 		for (; r < rows; r++) {
 			int pocetPrazdnychRadku = getNumEmptyLines();
-			if (neniVPU(c("druh_pozemku", r))) continue;
-			Parcela parcela = Parcela.getParcela(
-					c("cislo_lv", r), 
-					c("typ_evidence", r), 
-					c("cislo_parcely", r), 
-					c("poddeleni_cisla_par", r), 
-					c("vymera", r), 
-					c("druh_pozemku", r));
-			LV lv = parcela.lv;
-			lv.pridejParcelu(parcela);
-			
-			for (int i = r; i <= r+pocetPrazdnychRadku; i++) {
-				nactiVlastniky(lv, pocetPrazdnychRadku);
+			if (jePredmetemPU(c("druh_pozemku", r))) {
+				Parcela parcela = Parcela.getParcela(
+						c("cislo_lv", r), 
+						c("typ_evidence", r), 
+						c("cislo_parcely", r), 
+						c("poddeleni_cisla_par", r), 
+						c("vymera", r), 
+						c("druh_pozemku", r));
+				LV lv = parcela.lv;
 				
-				//p(r+1+" "+(i-r)+" "+c("subjekt", i).toString());
+				
+				for (int i = r; i <= r+pocetPrazdnychRadku; i++) {
+					nactiVlastniky(lv, pocetPrazdnychRadku);
+				}
 			}
-			
-			//p(r+1+" "+pocetPrazdnychRadku);
 			r+=getNumEmptyLines();
 		}
 	}
 	
 	private static void nactiVlastniky(LV lv, int pocetPrazdnychRadku) {
+		if (!lv.seznamVlastniku.isEmpty()) return;
 		for (int i = 0; i <= pocetPrazdnychRadku; i++) {
 			if (c("cislo_lv",r+i).toString().contains("-")) continue;
 			else {
@@ -79,64 +77,7 @@ public class Loader extends Konzole{
 		return i - (r+1);
 	}
 
-	public static void parseFile(File xlsFile) {
-		loadFile(xlsFile);
-		Parcela parcela;
-		LV lv = null;
-		Vlastnik vlastnik;
-		int procentoMinule = -1;
-		for (; r < rows; r++) {
-			int procento = (int)(((double) r)/((double) rows)*100.0);
-			if (procento != procentoMinule) p("Naèteno: "+procento);
-			
-			HSSFRow vlastnikRow = sheetIN.getRow(r);
-			if (jeNovy(vlastnikRow)) {
-				if (neniVPU(c("druh_pozemku", r))) {
-					dalsi();
-					if (nacteno ) break;
-					continue;
-				}
-				parcela = Parcela.getParcela(
-						c("cislo_lv", r), 
-						c("typ_evidence", r), 
-						c("cislo_parcely", r), 
-						c("poddeleni_cisla_par", r), 
-						c("vymera", r), 
-						c("druh_pozemku", r));
-				lv = parcela.lv;
-				lv.pridejParcelu(parcela);
-			}
-			vlastnik = Vlastnik.getVlastnik(
-					c("os_typ", r), 
-					c("rc", r), 
-					c("ic", r), 
-					c("subjekt", r), 
-					c("adresa", r), 
-					c("rc_BSM1", r), 
-					c("subjekt_BSM1", r), 
-					c("adresa_BSM1", r), 
-					c("rc_BSM2", r), 
-					c("subjekt_BSM2", r), 
-					c("adresa_BSM2", r));
-			if (vlastnik != null) {
-				vlastnik.pridejLV(lv, loadIntValue(c("podil_citatel", r)), loadIntValue(c("podil_jmenovatel", r)));
-				try {
-					lv.pridejVlastnika(vlastnik, loadIntValue(c("podil_citatel", r)), loadIntValue(c("podil_jmenovatel", r)));
-				} catch (Exception e) {
-					e.printStackTrace();
-					System.exit(0);
-				}
-			}
-		}
-	}
-
-	private static void dalsi() {
-		do
-			r++;
-		while (r<rows && !jeNovy(sheetIN.getRow(r+1)));
-	}
-
-	private static boolean neniVPU(HSSFCell cDruhPozemku) {
+	private static boolean jePredmetemPU(HSSFCell cDruhPozemku) {
 		String druh_pozemku = cDruhPozemku.getStringCellValue();
 		if (druh_pozemku.equalsIgnoreCase("orná pùda") || 
 				druh_pozemku.equalsIgnoreCase("chmelnice") || 
@@ -145,24 +86,13 @@ public class Loader extends Konzole{
 				druh_pozemku.equalsIgnoreCase("ovocný sad") || 
 				druh_pozemku.equalsIgnoreCase("trvalý travní porost") || 
 				druh_pozemku.equalsIgnoreCase("")) {
-			return false;
+			return true;
 		}
-		return true;
-		/*if (druh_pozemku.equalsIgnoreCase("zastavìná plocha a nádvoøí")) return true;
-		else return false;*/
+		return false;
 	}
 
 	private static HSSFCell c(String string, int r) {
 		return sheetIN.getRow(r).getCell(sloupec(string));
-	}
-
-	private static boolean jeNovy(HSSFRow currentRow) {
-		try {
-			return loadIntValue(currentRow.getCell(0)) != 0;
-		} catch (Exception e) {
-			nacteno = true;
-			return true;
-		}
 	}
 
 	private static void loadFile(File xlsFile) {
